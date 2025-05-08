@@ -20,6 +20,10 @@ import json
 from bson import json_util
 from flask import Flask
 from flask_cors import CORS
+
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
 # from flask_cors import CORS
 
 from pymongo import MongoClient
@@ -28,7 +32,9 @@ from deep_translator import GoogleTranslator
 
 # Initialize translator
 # translator = Translator()
-
+# uri = "mongodb+srv://admin-tool-786:wmqzOaoc5AzeRKiP@cluster0.9jitvus.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# Create a new client and connect to the server
+# client = MongoClient(uri, server_api=ServerApi('1'))
 client = MongoClient("mongodb://localhost:27017/")
 # print(client.list_database_names())
 db = client["pdfextractordb"]
@@ -39,7 +45,7 @@ products_collection = db["pdfextractor"]
 app = Flask(__name__)
 CORS(app)
 # === OpenAI Config ===
-openai.api_key = ""  # Replace this with your actual key
+openai.api_key = ""
 MODEL = "gpt-4o"
 MAX_TOKENS_PER_CHUNK = 3000
 CHUNK_OVERLAP = 100
